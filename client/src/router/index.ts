@@ -20,6 +20,11 @@ const routes: Array<RouteConfig> = [
     name: 'New',
     component: () => import('../views/Words/New.vue'),
   },
+  {
+    path: '/words/:id',
+    name: 'Show',
+    component: () => import('../views/Words/Show.vue'),
+  },
 ];
 
 const router = new VueRouter({

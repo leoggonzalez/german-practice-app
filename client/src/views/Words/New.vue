@@ -1,6 +1,7 @@
 <template>
-  <div class="words">
+  <div>
     <h1>Create Word</h1>
+
     <form v-on:submit.prevent="onSubmit">
       <div class="form-group">
         <label for="name">name</label>
@@ -10,27 +11,24 @@
         <label for="name">name english</label>
         <input required id="name" type="text" v-model="form.nameEn" />
       </div>
-      <div class="form-group">
-        <input type="radio" id="type-noun" value="noun" v-model="form.wordType" />
-        <label for="type-noun">Noun</label>
-        <input type="radio" id="type-adj" value="adj" v-model="form.wordType" />
-        <label for="type-adj">Adjective</label>
-        <input type="radio" id="type-verb" value="verb" v-model="form.wordType" />
-        <label for="type-verb">Verb</label>
+      <div class="form-group form-group--inline">
+        <div v-for="item in fields.wordType" :key="item">
+          <input type="radio" :id="item" :value="item" v-model="form.wordType" />
+          <label :for="item">{{ item }}</label>
+        </div>
       </div>
-      <div class="form-group">
-        <input type="radio" id="type-masc" value="masc" v-model="form.gender" />
-        <label for="type-masc">Masculine</label>
-        <input type="radio" id="type-fem" value="fem" v-model="form.gender" />
-        <label for="type-fem">Feminine</label>
-        <input type="radio" id="type-neutral" value="neutral" v-model="form.gender" />
-        <label for="type-neutral">Neutral</label>
+      <div class="form-group form-group--inline">
+        <div v-for="item in fields.gender" :key="item">
+          <input type="radio" :id="item" :value="item" v-model="form.gender" />
+          <label :for="item">{{ item }}</label>
+        </div>
       </div>
       <div class="form-group">
         <label for="definition">Definition</label>
         <textarea name="definition" id="definition" rows="5" v-model="form.definition"></textarea>
       </div>
       <footer class="form-footer">
+        <router-link to="/words" tag="button">back</router-link>
         <button>Submit</button>
       </footer>
     </form>
@@ -43,11 +41,15 @@ import Vue from 'vue';
 export default Vue.extend({
   name: 'New',
   data: () => ({
+    fields: {
+      gender: ['masculine', 'feminine', 'neutral'],
+      wordType: ['noun', 'adjective', 'verb'],
+    },
     form: {
       name: '',
       nameEn: '',
       wordType: 'noun',
-      gender: 'masc',
+      gender: 'masculine',
       definition: '',
     },
   }),
@@ -58,3 +60,14 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style lang="scss">
+.form-group {
+  margin-bottom: 16px;
+  &--inline {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}
+</style>
