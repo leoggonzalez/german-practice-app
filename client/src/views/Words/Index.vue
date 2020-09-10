@@ -25,7 +25,7 @@
           <td>
             <router-link tag="button" :to="`/words/${item.id}`">view</router-link>
             <router-link tag="button" :to="`/words/${item.id}/edit`">edit</router-link>
-            <button>delete</button>
+            <button v-on:click="handleDelete(item.id)">delete</button>
           </td>
         </tr>
       </tbody>
@@ -47,6 +47,15 @@ export default Vue.extend({
       return this.$store.state.loading.words;
     },
     ...mapState(['words']),
+  },
+  methods: {
+    handleDelete(id: string): void {
+      // eslint-disable-next-line
+      const resp = confirm('Are you sure you want to delete this Word?');
+      if (resp) {
+        this.$store.dispatch('deleteWord', id);
+      }
+    },
   },
 });
 </script>

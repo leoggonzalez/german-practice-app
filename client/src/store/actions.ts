@@ -65,4 +65,12 @@ export default {
       console.log(error);
     }
   },
+  async deleteWord({ commit }: ActionParams, id: string): Promise<void> {
+    try {
+      await axios.delete(`http://localhost:3000/api/v1/words/${id}`);
+      commit('DELETE_WORD', id);
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };

@@ -24,6 +24,9 @@ export default new Vuex.Store({
     UPDATE_WORD(state, word: Word) {
       state.words = [...state.words.filter(item => item.id !== word.id), word];
     },
+    DELETE_WORD(state, id: string) {
+      state.words = [...state.words.filter(item => item.id !== id)];
+    },
     SET_LOADING<K extends keyof StateLoading>(state: State, property: K) {
       state.loading[property] = true;
     },
