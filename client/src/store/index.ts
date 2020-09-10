@@ -19,7 +19,10 @@ export default new Vuex.Store({
       state.words = words;
     },
     ADD_WORD(state, word: Word) {
-      state.words.push(word);
+      state.words = [...state.words.filter(item => item.id !== word.id), word];
+    },
+    UPDATE_WORD(state, word: Word) {
+      state.words = [...state.words.filter(item => item.id !== word.id), word];
     },
     SET_LOADING<K extends keyof StateLoading>(state: State, property: K) {
       state.loading[property] = true;

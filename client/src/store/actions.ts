@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { ActionParams } from './types';
 import { Word, WordApi } from '../model/word';
+import router from '../router';
 
 function mapParams(word: WordApi): Word {
   return {
@@ -43,11 +44,23 @@ export default {
         // eslint-disable-next-line
         name_en: data.nameEn,
       });
-      commit('ADD_WORD', {
-        ...resp.data,
-        wordType: resp.data.word_type,
-        nameEn: resp.data.name_en,
+      commit('ADD_WORD', mapParams(resp.data));
+      router.push(`/words/${resp.data.id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async editWord({ commit }: ActionParams, data: Word): Promise<void> {
+    try {
+      const resp = await axios.put<WordApi>(`http://localhost:3000/api/v1/words/${data.id}`, {
+        ...data,
+        // eslint-disable-next-line
+        word_type: data.wordType,
+        // eslint-disable-next-line
+        name_en: data.nameEn,
       });
+      commit('UPDATE_WORD', mapParams(resp.data));
+      router.push(`/words/${resp.data.id}`);
     } catch (error) {
       console.log(error);
     }

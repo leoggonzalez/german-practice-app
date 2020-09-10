@@ -49,7 +49,11 @@ export default Vue.extend({
   }),
   methods: {
     onSubmit() {
-      this.$store.dispatch('createWord', this.form);
+      if (this.word) {
+        this.$store.dispatch('editWord', this.form);
+      } else {
+        this.$store.dispatch('createWord', this.form);
+      }
     },
     async loadWord(): Promise<void> {
       await this.$store.dispatch('loadWord', this.$route.params.id);
