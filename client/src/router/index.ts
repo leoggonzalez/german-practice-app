@@ -21,6 +21,11 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/Words/New.vue'),
   },
   {
+    path: '/words/:id/edit',
+    name: 'Edit',
+    component: () => import('../views/Words/New.vue'),
+  },
+  {
     path: '/words/:id',
     name: 'Show',
     component: () => import('../views/Words/Show.vue'),

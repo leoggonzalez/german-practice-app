@@ -32,26 +32,25 @@
 </template>
 
 <script lang="ts">
+import { Word } from '@/model/word';
 import Vue from 'vue';
 
 export default Vue.extend({
   name: 'Word',
-  data: () => ({
-    loading: false,
-  }),
   mounted() {
     this.loadWord();
   },
   methods: {
-    async loadWord(): Promise<void> {
-      this.loading = true;
-      await this.$store.dispatch('loadWord', this.$route.params.id);
-      this.loading = false;
+    loadWord(): void {
+      this.$store.dispatch('loadWord', this.$route.params.id);
     },
   },
   computed: {
+    loading(): boolean {
+      return this.$store.state.loading.word;
+    },
     word(): Word {
-      return this.$store.getters.getTodoById(2);
+      return this.$store.getters.getWordById(this.$route.params.id);
     },
   },
 });

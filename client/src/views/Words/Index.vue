@@ -2,7 +2,9 @@
   <div class="words">
     <h1>Words</h1>
     <router-link to="words/new" tag="button">create word</router-link>
-    <table style="width:100%">
+    <div v-if="loading">Loading...</div>
+    <div v-else-if="!words.length">There are no words</div>
+    <table v-else style="width:100%">
       <thead>
         <tr>
           <th>Name</th>
@@ -10,15 +12,21 @@
           <th>Gender</th>
           <th>Word Type</th>
           <th>Definition</th>
+          <th>actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in words" :key="item.id" v-on:click="openWord(item.id)">
+        <tr v-for="item in words" :key="item.id">
           <td>{{ item.name }}</td>
           <td>{{ item.name_en }}</td>
           <td>{{ item.gender }}</td>
           <td>{{ item.word_type }}</td>
           <td>{{ item.definition }}</td>
+          <td>
+            <router-link tag="button" :to="`/words/${item.id}`">view</router-link>
+            <router-link tag="button" :to="`/words/${item.id}/edit`">edit</router-link>
+            <button>delete</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -34,11 +42,11 @@ export default Vue.extend({
   mounted() {
     this.$store.dispatch('loadWords');
   },
-  computed: mapState(['words']),
-  methods: {
-    openWord(id: string): void {
-      this.$router.push(`/words/${id}`);
+  computed: {
+    loading() {
+      return this.$store.state.loading.words;
     },
+    ...mapState(['words']),
   },
 });
 </script>

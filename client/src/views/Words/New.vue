@@ -36,6 +36,7 @@
 </template>
 
 <script lang="ts">
+import { Word } from '@/model/word';
 import Vue from 'vue';
 
 export default Vue.extend({
@@ -45,17 +46,37 @@ export default Vue.extend({
       gender: ['masculine', 'feminine', 'neutral'],
       wordType: ['noun', 'adjective', 'verb'],
     },
-    form: {
-      name: '',
-      nameEn: '',
-      wordType: 'noun',
-      gender: 'masculine',
-      definition: '',
-    },
   }),
   methods: {
     onSubmit() {
       this.$store.dispatch('createWord', this.form);
+    },
+    async loadWord(): Promise<void> {
+      await this.$store.dispatch('loadWord', this.$route.params.id);
+    },
+  },
+  mounted() {
+    this.loadWord();
+  },
+  computed: {
+    loading(): boolean {
+      return this.$store.state.loading.word;
+    },
+    word(): Word {
+      return this.$store.getters.getWordById(this.$route.params.id);
+    },
+    form() {
+      // TODO: Properly type vue instance
+      // eslint-disable-next-line
+      if (this.word) return (this as any).word;
+
+      return {
+        name: '',
+        nameEn: '',
+        wordType: 'noun',
+        gender: 'masculine',
+        definition: '',
+      };
     },
   },
 });
