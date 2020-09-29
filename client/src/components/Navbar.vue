@@ -1,20 +1,49 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link>|
-    <router-link to="/words">Words</router-link>
+  <div class="navbar">
+    <div class="container">
+      <div class="navbar__logo">German Practice App</div>
+      <ul class="navbar__links">
+        <li class="navbar__link">
+          <router-link to="/">Home</router-link>
+        </li>
+        <li class="navbar__link">
+          <router-link to="/words">Words</router-link>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <style lang="scss">
-#nav {
-  padding: 30px;
+.navbar {
+  background-color: var(--primary);
+  color: white;
+
+  .container {
+    height: 40px;
+    display: flex;
+    align-items: center;
+  }
 
   a {
-    font-weight: bold;
-    color: #2c3e50;
+    text-decoration: none;
+    color: white;
+  }
 
-    &.router-link-exact-active {
-      color: #42b983;
+  &__links {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  &__link {
+    &:not(:last-child) {
+      margin-right: 16px;
+    }
+    &:hover {
+      a {
+        color: var(--secondary);
+      }
     }
   }
 }

@@ -1,10 +1,12 @@
 <template>
-  <div class="words">
+  <div class="page container stack">
     <h1>Words</h1>
-    <router-link to="words/new" tag="button">create word</router-link>
+    <div>
+      <router-link to="words/new" tag="button">create word</router-link>
+    </div>
     <div v-if="loading">Loading...</div>
     <div v-else-if="!words.length">There are no words</div>
-    <table v-else style="width:100%">
+    <table v-else style="width: 100%">
       <thead>
         <tr>
           <th>Name</th>
@@ -23,8 +25,12 @@
           <td>{{ item.word_type }}</td>
           <td>{{ item.definition }}</td>
           <td>
-            <router-link tag="button" :to="`/words/${item.id}`">view</router-link>
-            <router-link tag="button" :to="`/words/${item.id}/edit`">edit</router-link>
+            <router-link tag="button" :to="`/words/${item.id}`"
+              >view</router-link
+            >
+            <router-link tag="button" :to="`/words/${item.id}/edit`"
+              >edit</router-link
+            >
             <button v-on:click="handleDelete(item.id)">delete</button>
           </td>
         </tr>

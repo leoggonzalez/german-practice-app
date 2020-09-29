@@ -30,6 +30,11 @@ const routes: Array<RouteConfig> = [
     name: 'Show',
     component: () => import('../views/Words/Show.vue'),
   },
+  {
+    path: '/word-practice',
+    name: 'WordPractice',
+    component: () => import('../views/Practice/WordPractice.vue'),
+  },
 ];
 
 const router = new VueRouter({

@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="page container">
     <div v-if="loading">Loading</div>
     <div v-else-if="!word">Can't find word</div>
-    <div v-else>
+    <div v-else class="stack">
       <h1>{{ word.name }}</h1>
-      <ul>
+      <ul class="stack stack--xs">
         <li>
           <strong>Name:</strong>
           {{ word.name }}
@@ -26,8 +26,10 @@
           {{ word.definition }}
         </li>
       </ul>
+      <div>
+        <router-link to="/words" tag="button">Go back</router-link>
+      </div>
     </div>
-    <router-link to="/words" tag="button">Go back</router-link>
   </div>
 </template>
 

@@ -30,7 +30,7 @@ class Api::V1::WordsController < ApplicationController
   def update
     if @word
       @word.update(word_params)
-      render json: { message: 'Word succesfully updated.' }, status: 200
+      render json: @word
     else
       render json: { message: 'Unable to update word.' }, status: 400
     end
